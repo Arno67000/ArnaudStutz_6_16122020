@@ -1,14 +1,32 @@
 const express = require('express');
+const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
+const toobusy = require('toobusy-js');
+
+const winston = require('./logger/winstonConfig');
+const morgan = require('morgan');
 
 const userRouter = require('./routes/user');
 const sauceRouter = require('./routes/sauce');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://Arno:Arno222608@clusteroc.pjhhv.mongodb.net/ClusterOC?retryWrites=true&w=majority',
+app.use(helmet());
+
+app.use(morgan('combined', { stream: winston.stream }));
+
+app.use(function(req, res, next) {
+  if (toobusy()) {
+    res.send(503, "I'm busy right now, sorry.");
+  } else {
+    next();
+  }
+});
+
+mongoose.connect('mongodb+srv://Validateur:ProjectValidation@clusteroc.pjhhv.mongodb.net/ClusterOC?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -21,12 +39,25 @@ app.use((req, res, next) => {
     next();
 });
 
+//app.use(express.multipart({ limit:"10mb" }));
 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false, limit: "1kb"}));
+app.use(bodyParser.json({ limit: "1kb" }));
+app.use(mongoSanitize({
+  replaceWith: '_'
+}));
+
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/auth', userRouter);
 app.use('/api/sauces', sauceRouter);
 
+// error handler
+app.use(function(err, req, res, next) {
+  winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+
+  res.status(err.status || 500);
+  res.render('error');
+ });
 
 module.exports = app;

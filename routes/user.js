@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const userControl = require('../controllers/user');
+const bouncer = require('express-bouncer')(500,600000,3);
 
-router.post('/signup', userControl.signup);
+const {userValidationRules, validate} = require('../middleware/inputValidator');
+const userController = require('../controllers/user');
 
-router.post('/login', userControl.login);
+router.post('/signup', userValidationRules(), validate, userController.signup);
+
+router.post('/login', bouncer.block, userController.login);
 
 module.exports = router;
