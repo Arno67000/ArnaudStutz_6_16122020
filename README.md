@@ -19,7 +19,8 @@ Installation et lancement Application/frontend:
 La partie apllication/frontend se trouve ici: https://github.com/OpenClassrooms-Student-Center/dwj-projet6
 
 - cloner le projet
-- ouvrir la console dans le dossier dwj-projet6 (ou déplacer vous dans le dossier cd dwj-projet6)
+- ouvrir la console dans le dossier installé (ou déplacer vous dans le dossier cd nom_dossier)
 - lancer la commande npm install (installation des dépedences)
+- pour faire fonctionner le projet, vous devez installer node-sass à part.
 - lancer la commande npm start
 - attendre la fin de la compilation et ouvrir le navigateur web à l'adresse : http://localhost:4200/
