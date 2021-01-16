@@ -22,5 +22,5 @@ La partie apllication/frontend se trouve ici: https://github.com/OpenClassrooms-
 - ouvrir la console dans le dossier installé (ou déplacer vous dans le dossier cd nom_dossier)
 - lancer la commande npm install (installation des dépedences)
 - pour faire fonctionner le projet, vous devez installer node-sass à part.
-- lancer la commande npm start
+- lancer la commande npm start  / ou:  ng serve
 - attendre la fin de la compilation et ouvrir le navigateur web à l'adresse : http://localhost:4200/
