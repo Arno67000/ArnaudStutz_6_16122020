@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
   }
 });
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clusteroc.pjhhv.mongodb.net/ClusterOC?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie ! Server on port '+process.env.APP_PORT))
