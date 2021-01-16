@@ -16,7 +16,7 @@ exports.signup = (req, res, next) => {
             })
             console.log(user)
             user.save()
-                .then(() => res.status(200).json({ message: 'Nouvel utilisateur enregistré.'}))
+                .then(() => res.status(201).json({ message: 'Nouvel utilisateur enregistré.'}))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
@@ -42,7 +42,7 @@ exports.login = (req, res, next) => {
                                 });
                             }
                             else {
-                                return res.status(401).json({ message: 'Mot de passe invalide.'});
+                                return res.status(403).json({ message: 'Mot de passe invalide.'});
                             };
                         })
                         .catch(error => res.status(500).json({ error }));

@@ -20,7 +20,7 @@ exports.addNewSauce = (req, res, next) => {
     console.log(sauce);
     sauce.save()
         .then(() => res.status(201).json({ message: 'Nouvelle sauce ajoutée.'}))
-        .catch(error => res.status(400).json({ error }));
+        .catch(error => res.status(406).json({ error }));
 };
 
 exports.modifySauce = (req, res, next) => {
@@ -85,7 +85,7 @@ exports.deleteSauce = (req, res, next) => {
             }));
             Sauce.deleteOne({_id: req.params.id})
                 .then(() => res.status(200).json({ message: 'Sauce supprimée.'}))
-                .catch(error => res.status(400).json({ error }));
+                .catch(error => res.status(500).json({ error }));
         })
         .catch(error => res.status(404).json({ error }));
 };
@@ -122,10 +122,10 @@ exports.likeSauce = (req, res, next) => {
                         throw err; 
                     }
                 })
-                .catch(error => res.status(400).json({ error }));
+                .catch(error => res.status(404).json({ error }));
             break;
 
         default : 
-               return res.status(500).json({ message: 'Error post'})
+               return res.status(400).json({ message: 'Error post'})
     };
 };
