@@ -6,7 +6,7 @@ Repo du projet 6 , j'ai volontairement écarté les node_modules de git à cause
 Installation et lancement du server:
 
 - cloner le projet
-- ouvrir la console dans le dossier dwj-back (ou déplacer vous dans le dossier cd dwj-back)
+- ouvrir la console dans le dossier créé (ou déplacer vous dans le dossier cd nom_dossier)
 - lancer la commande npm install (installation des dépedences)
 - renommer le fichier ".env.example" en => ".env"
 - ouvrir le fichier .env et remplacer les champs "....." par les informations requises { APP_PORT(Choisir un port pour le server), DB_USER(Validateur) et DB_PASSWORD(ProjectValidation), DB_CLUSTER(clusteroc.pjhhv.mongodb.net/ClusterOC) }
