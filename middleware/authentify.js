@@ -6,13 +6,13 @@ module.exports = (req, res, next) => {
         const verifiedToken = jswebtkn.verify(token, 'CRYPTAGEDUTOKEN2226080389');
         const userId = verifiedToken.userId;
         if(req.body.userId && req.body.userId !== userId) {
-            return res.status(400).json({ message: 'Id utilisateur non valide.'})
+            return res.status(401).json({ message: 'Id utilisateur non valide.'})
         }
         else {
             next();
         };
     }
     catch {
-        return res.status(400).json({ message: 'La requête nécessite authentification.'})
+        return res.status(403).json({ message: 'La requête nécessite authentification.'})
     };
 };

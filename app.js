@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
 const toobusy = require('toobusy-js');
+require('dotenv').config();
 
 const winston = require('./logger/winstonConfig');
 const morgan = require('morgan');
@@ -26,10 +27,10 @@ app.use(function(req, res, next) {
   }
 });
 
-mongoose.connect('mongodb+srv://Validateur:ProjectValidation@clusteroc.pjhhv.mongodb.net/ClusterOC?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clusteroc.pjhhv.mongodb.net/ClusterOC?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .then(() => console.log('Connexion à MongoDB réussie ! Server on port '+process.env.APP_PORT))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use((req, res, next) => {
